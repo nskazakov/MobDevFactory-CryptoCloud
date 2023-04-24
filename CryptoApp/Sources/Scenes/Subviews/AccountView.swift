@@ -9,9 +9,8 @@ import SwiftUI
 
 struct AccountView: View {
 
-    @State private var accountName = ""
-    @State private var starterAmount = ""
-    @State private var apiKey = ""
+    @ObservedObject var viewModel: ShopViewModel
+
     @Binding var isPresented: Bool
 
     var body: some View {
@@ -36,30 +35,23 @@ struct AccountView: View {
                         .frame(width: 100, height: 80)
                     }
                     .padding(20)
-                    
+
                     AccountStack(
                         title: "Account name",
-                        textAccount: $accountName,
+                        textAccount: $viewModel.accountName,
                         placeholder: "Account name here"
                     )
 
-                    AccountStack(
-                        title: "Add API Key",
-                        textAccount: $apiKey, // добавил, чтобы убрать ошибку делал в другом файле "Add API Key" не видел.
-                        placeholder: "Add API Key here"
-                    )
-                    
                     HStack {
                         AccountStack(
-                            title: "Starter amount",
-                            textAccount: $starterAmount,
-                            placeholder: "$ 0,000.00"
+                            title: "Add API Key",
+                            textAccount: $viewModel.apiKey,
+                            placeholder: "Add API Key here"
                         )
-                        
+
                         Button {
-                            let localStorage = LocalStorage(userDefaults: UserDefaults.standard)
-                            localStorage.save(accountName, for: "accountName")
-                            localStorage.save(starterAmount, for: "starterAmount")
+                            viewModel.createShop()
+                            isPresented.toggle()
                         } label: {
                             Image(systemName: "chevron.right")
                                 .aspectRatio(contentMode: .fit)
@@ -67,14 +59,14 @@ struct AccountView: View {
                                 .bold()
                                 .foregroundColor(.white)
                                 .background(
-                                    accountName.isEmpty || starterAmount.isEmpty || apiKey.isEmpty ?
-                                    Colors.gray : Colors.pink
+                                    !viewModel.saveIsEnabled ? Colors.gray : Colors.pink
                                 )
                                 .cornerRadius(15)
                         }
+                        .disabled(!viewModel.saveIsEnabled)
                         .padding(20)
                     }
-                    
+
                     Spacer()
                 }
                 .padding(.top, 140)
@@ -84,6 +76,7 @@ struct AccountView: View {
                 leftBarButton: .init(
                     imageName: "plus",
                     action: { isPresented.toggle() })
+
             )
         }
         .background(Color.gray.opacity(0.1))

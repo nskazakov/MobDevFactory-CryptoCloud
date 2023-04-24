@@ -9,6 +9,7 @@ import Foundation
 
 struct Shop: Codable, Identifiable {
     let id: UUID
-    let icon: String
-    let title: String
+    let title: String?
+    var description: String?
+    var imageURL: String?
 }

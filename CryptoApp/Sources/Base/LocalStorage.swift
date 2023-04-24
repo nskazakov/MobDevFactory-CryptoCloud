@@ -27,6 +27,7 @@ final class LocalStorage: LocalStorageType {
     }
 
     func fetchValue<T>(type: T.Type, for key: String) -> T? {
+        //        userDefaults.value(forKey: key) as? T
         userDefaults.value(forKey: key) as? T
     }
 }

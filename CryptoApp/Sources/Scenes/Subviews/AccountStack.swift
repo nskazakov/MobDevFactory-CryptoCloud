@@ -31,9 +31,3 @@ struct AccountStack: View {
         .padding(20)
     }
 }
-
-struct AccountStack_Previews: PreviewProvider {
-    static var previews: some View {
-        ShopListView(viewModel: ShopListViewModel())
-    }
-}

@@ -11,7 +11,7 @@ import SwiftUI
 struct CryptoAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ShopListView(viewModel: ShopListViewModel())
+            ShopListView(viewModel: ShopViewModel(localStorage: LocalStorage(userDefaults: .standard)))
         }
     }
 }

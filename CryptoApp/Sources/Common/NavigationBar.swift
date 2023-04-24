@@ -46,7 +46,7 @@ struct NavigationBar: View {
                         Button {
                             leftBarButton.action?()
                         } label: {
-                            if let title = leftBarButton.title {
+                            if leftBarButton.title != nil {
                                 // TODO: - add title button impl
                             } else if let imageName = leftBarButton.imageName {
                                 Image(systemName: imageName)
@@ -72,7 +72,7 @@ struct NavigationBar: View {
                         Button {
                             rightBarButton.action?()
                         } label: {
-                            if let title = rightBarButton.title {
+                            if rightBarButton.title != nil {
                                 // TODO: - add title button impl
                             } else if let imageName = rightBarButton.imageName {
                                 Image(systemName: imageName)
