@@ -34,15 +34,12 @@ struct ShopListView: View {
         }
         .background(Color.gray.opacity(0.1))
         .sheet(isPresented: $isPresented) {
-            AccountView(
-                viewModel: ShopViewModel(
-                    localStorage: LocalStorage.init(
-                        userDefaults: .standard
-                    )
-                ), isPresented: $isPresented
-            )
-        }
-    }
+               AccountView(
+                   viewModel: viewModel,
+                   isPresented: $isPresented
+               )
+           }
+       }
 
     var shopListView: some View {
         VStack(alignment: .leading) {
